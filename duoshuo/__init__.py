@@ -96,17 +96,17 @@ class Resource(object):
         params = []
         for k, v in kwargs.iteritems():
             if isinstance(v, (list, tuple)):
-                for val in v:
-                    params.append((k, val))
+                for i in range(len(v)):
+                    for key in v[i]:
+                        params.append('%s[%s][%s]=%s' % (k, i, key, urllib.quote_plus(str(v[i][key]))))
             else:
-                params.append((k, v))
+                params.append('%s=%s' % (k,v))
 
         if method == 'GET':
             path = '%s?%s' % (path, urllib.urlencode(params))
             response = urllib2.urlopen(path).read()
         else:
-            data = urllib.urlencode(params)
-            response = urllib2.urlopen(path, data).read()
+            response = urllib2.urlopen(path, '&'.join(params)).read()
 
         try:
             return _parse_json(response)

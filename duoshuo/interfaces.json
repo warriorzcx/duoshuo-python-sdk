@@ -62,7 +62,7 @@
         "jsonp"
       ]
     },
-    "import": {
+    "imports": {
       "required": [
         "users"
       ],
