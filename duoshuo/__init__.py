@@ -85,7 +85,7 @@ class Resource(object):
         api = self.api
 
         format = kwargs.pop('format', api.format)
-        path = '%s://%s/%s.%s' % (URI_SCHEMA, HOST, '/'.join(self.tree), format)
+        path = '%s://%s/%s.%s' % (URI_SCHEMA, HOST, '/'.join(self.tree).replace('imports', 'import'), format)
 
         if 'secret' not in kwargs and api.secret:
             kwargs['secret'] = api.secret
